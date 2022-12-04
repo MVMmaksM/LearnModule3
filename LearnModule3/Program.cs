@@ -2,8 +2,8 @@
 
 public class User 
 {    
-    private int _age;
-    public int Age
+    private byte _age;
+    public byte Age
     {
         get { return _age; }  
     }
@@ -19,7 +19,7 @@ public class User
 
         if (isValidAge) 
         {
-            _age = DateTime.Now.Date.Year - _dateOfBirth.Date.Year;
+            _age = (byte) (DateTime.Now.Date.Year - _dateOfBirth.Date.Year);
             return true;
         }
         else
