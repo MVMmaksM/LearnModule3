@@ -1,19 +1,67 @@
 ﻿using System;
 
+public class User 
+{    
+    private int _age;
+    public int Age
+    {
+        get { return _age; }  
+    }
+    private DateTime _dateOfBirth;
+    public DateTime DateOfBirth { get => _dateOfBirth; }       
+    public string? Name { get; set; }   
+    
+
+    public bool isValidDate(string? dateOfBirth) => DateTime.TryParse(dateOfBirth, out _dateOfBirth);
+    public bool isValidAge() 
+    {
+       bool isValidAge =  (DateTime.Now.Date.Year - _dateOfBirth.Date.Year) < 100;
+
+        if (isValidAge) 
+        {
+            _age = DateTime.Now.Date.Year - _dateOfBirth.Date.Year;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+}
+
 class MainClass
-{
+{  
     public static void Main(string[] args)
     {
-        const string MyName = "Maks";
+        User user = new();
 
-        Console.WriteLine(MyName);
+        Console.WriteLine("Введите имя");
+        user.Name = Console.ReadLine();
 
-        Console.WriteLine("\t Привет Мир");
-        Console.WriteLine("\t Мне 27 лет");
-        Console.WriteLine("\t My name is \n {0}", MyName);
-        Console.WriteLine("\u0040");
-        Console.WriteLine("\u0023");
-        Console.ReadKey();
+        while (true)
+        {
+            Console.WriteLine("\nВведите дату рождения");
 
-    }  
+            if (!user.isValidDate(Console.ReadLine()))
+            {
+                Console.WriteLine("\nНекорректная дата рождения!");
+                continue;
+
+            }
+            else if (!user.isValidAge()) 
+            {
+                Console.WriteLine("\nНекорректный возраст!");
+                continue;
+            }
+            else
+            {
+                break;
+            }          
+        }        
+
+        Console.WriteLine($"\nВаше имя: { user.Name}");
+        Console.WriteLine($"Ваша дата рождения: {user.DateOfBirth.ToShortDateString()}");
+        Console.WriteLine($"Ваш возраст: {user.Age}");
+    }
 }
